@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+	<form action="/user/all" method="GET">
+		<button name="getAll">Get all users in Json</button>
+	</form>
+    <form action="/user/add" method="POST">
+        First name: <input type="text" name="firstName"><br>
+        Last name: <input type="text" name="lastName"><br>
+        <button name="create">Add user</button>
+    </form>    
+    <form action="home" method="PUT">
+    	ID: <input type="number" name="id"><br>
+        First name: <input type="text" name="firstName"><br>
+        Last name: <input type="text" name="lastName"><br>
+        <button type="submit" name="modif" value="modifUser">Set User</button>
+    </form>
+    <form action=”home” method="DELETE" >
+  		ID: <input type="number" name="id"><br>
+  		<button type="submit">Delete</button>
+	</form>
+</body>
+</html>
