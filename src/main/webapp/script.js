@@ -2,9 +2,9 @@ document.getElementById("all").addEventListener("click", getAllUsers);
 document.getElementById("add").addEventListener("click", addUser);
 document.getElementById("set").addEventListener("click", setUser);
 document.getElementById("delete").addEventListener("click", delUser);
-let url = "/rest/user/";
+let url = "/rest/";
 function getAllUsers(){
-		$.get(url+"all", function(data, status){
+		$.get(url+"users", function(data, status){
 			console.log("Data: " + data + "\nStatus: " + status);
 		});
 }
@@ -19,10 +19,17 @@ function setUser(){
 	let fName = document.getElementById("setFName").value;
 	let lName = document.getElementById("setLName").value;
 	let id = document.getElementById("setId").value;
+
+	const user = {
+		firstName : fName,
+		lastName : lName
+	};
+
 	$.ajax({
 		url:url+id,
 		type:"PUT",
-		data: {firstName: fName, lastName:lName},
+		data: user,
+		dataType: "json",
 		success: function(data){
 			alert("success put");
 		},
@@ -34,8 +41,11 @@ function setUser(){
 function delUser(){
 	let id = document.getElementById("deleteId").value;
 	$.ajax({
+
 		url:url+id,
 		type:"DELETE",
+		data : {id: id},
+		dataType: "json",
 		success: function(data){
 			alert("success "+data);
 		},
