@@ -9,32 +9,25 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-
-import java.io.IOException;
-import java.io.StringWriter;
-
-public class MongoManager {
+class MongoManager {
 
     private static MongoManager instance = new MongoManager();
 
-    private MongoClient client;
-    private MongoDatabase database;
     private MongoCollection<Document> userCollection;
 
-    private String DB_NAME = "username";
-    private String USER_COLLECTION = "users";
-
     private MongoManager() {
-        client = new MongoClient();
-        database = client.getDatabase(DB_NAME);
+        MongoClient client = new MongoClient();
+        String DB_NAME = "username";
+        MongoDatabase database = client.getDatabase(DB_NAME);
+        String USER_COLLECTION = "users";
         userCollection = database.getCollection(USER_COLLECTION);
     }
 
-    public static MongoManager getInstance(){
+    static MongoManager getInstance(){
         return instance;
     }
 
-    public boolean addUser(User u){
+    boolean addUser(User u){
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(u);
@@ -47,15 +40,15 @@ public class MongoManager {
         return true;
     }
 
-    public FindIterable<Document> getAll(){
+    FindIterable<Document> getAll(){
         return userCollection.find();
     }
 
-    public boolean deleteUser(String id){
-        return userCollection.deleteOne(new Document("_id", new ObjectId(id))).getDeletedCount() == 1;
+    boolean deleteUser(String id){
+        return (userCollection.deleteOne(new Document("_id", new ObjectId(id))).getDeletedCount() == 1);
     }
 
-    public void setUser(String id, String firstName, String lastName){
+    void setUser(String id, String firstName, String lastName){
         BasicDBObject objectId = new BasicDBObject("_id", new ObjectId(id));
         if (!firstName.equals(""))
             userCollection.updateOne(new BasicDBObject(objectId), new BasicDBObject("$set", new BasicDBObject("FirstName", firstName)));

@@ -2,10 +2,6 @@ package tpProgWeb;
 
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 import javax.ws.rs.DELETE;
@@ -21,15 +17,18 @@ import java.io.IOException;
 
 
 @Path("/user")
-public class HelloWorldResource {
+public class UserResource {
     @GET
     @Produces("text/plain")
     @Path("/all")
     public String getUsers() {
         StringBuffer buffer = new StringBuffer();
+        buffer.append("[");
         for (Document doc : MongoManager.getInstance().getAll()){
             buffer.append(doc.toJson());
+            buffer.append(",");
         }
+        buffer.append("]");
         return buffer.toString();
     }
     
@@ -57,7 +56,7 @@ public class HelloWorldResource {
     @Path("{id}")
     public Response setUser(@PathParam("id") String id,
                             @FormParam("firstName") String firstName,
-                            @FormParam("lastName") String lastName) throws IOException {
+                            @FormParam("lastName") String lastName){
         if (!id.equals("")){
             MongoManager.getInstance().setUser(id, firstName, lastName);
             return Response.ok().build();
