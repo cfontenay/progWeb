@@ -21,7 +21,7 @@ public class UserResource {
     @GET
     @Produces("text/plain")
     @Path("/all")
-    public String getUsers() {
+    public Response getUsers() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[");
         for (Document doc : MongoManager.getInstance().getAll()){
@@ -29,7 +29,7 @@ public class UserResource {
             buffer.append(",");
         }
         buffer.append("]");
-        return buffer.toString();
+        return Response.ok().entity(buffer.toString()).build();
     }
     
     @POST
@@ -41,7 +41,6 @@ public class UserResource {
         if(!MongoManager.getInstance().addUser(user))
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         return Response.ok().build();
-
     }
     
     @DELETE
@@ -62,7 +61,7 @@ public class UserResource {
             return Response.ok().build();
 
         }
-        return Response.status(Response.Status.BAD_REQUEST).entity("ID required").build();
+        return Response.status(Response.Status.BAD_REQUEST).build();
 
     }
 }
