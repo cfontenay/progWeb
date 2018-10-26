@@ -12,7 +12,7 @@ function getAllUsers(){
 function getUser(){
 	let id = document.getElementById("getId").value;
 	$.ajax({
-		url:url+id,
+		url:url+"user/"+id,
 		type:"GET",
 		data : {id: id},
 		dataType: "json",
@@ -28,7 +28,7 @@ function getUser(){
 function addUser(){
 	let fName = document.getElementById("addFName").value;
 	let lName = document.getElementById("addLName").value;
-	$.post(url+"add", {firstName: fName, lastName:lName}, function(data){
+	$.post(url+"user/"+"add", {firstName: fName, lastName:lName}, function(data){
 		alert("data:"+data);
 	});
 }
@@ -43,7 +43,7 @@ function setUser(){
 	};
 
 	$.ajax({
-		url:url+id,
+		url:url+"user/"+id,
 		type:"PUT",
 		data: user,
 		dataType: "json",
@@ -59,7 +59,7 @@ function delUser(){
 	let id = document.getElementById("deleteId").value;
 	$.ajax({
 
-		url:url+id,
+		url:url+"user/"+id,
 		type:"DELETE",
 		data : {id: id},
 		dataType: "json",
