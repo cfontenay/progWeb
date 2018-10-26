@@ -14,10 +14,8 @@ function getUser(){
 	$.ajax({
 		url:url+"user/"+id,
 		type:"GET",
-		data : {id: id},
-		dataType: "json",
 		success: function(data){
-			alert("success "+data);
+			console.log("Data: " + data + "\nStatus: " + status);
 		},
 		error: function(request, msg, error){
 			alert("error delete" + data);
@@ -44,10 +42,10 @@ function setUser(){
 
 	$.ajax({
 		url:url+"user/"+id,
-		type:"PUT",
+		method:"PUT",
 		data: user,
-		dataType: "json",
-		success: function(data){
+		contentType: "json",
+		success: function(data,status){
 			alert("success put");
 		},
 		error: function(request, msg, error){
@@ -61,13 +59,11 @@ function delUser(){
 
 		url:url+"user/"+id,
 		type:"DELETE",
-		data : {id: id},
-		dataType: "json",
 		success: function(data){
 			alert("success "+data);
 		},
 		error: function(request, msg, error){
-			alert("error delete" + data);
+			alert("error delete" + msg);
 		}
 	});
 }

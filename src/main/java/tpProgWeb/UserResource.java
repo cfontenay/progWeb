@@ -32,7 +32,7 @@ public class UserResource {
         return Response.ok().entity(buffer.toString()).build();
     }
     @GET
-    @Produces("test/plain")
+    @Produces("text/plain")
 	@Path("/user/{id}")
     public Response getUser(@PathParam("id") String id){
     	String s = "["+MongoManager.getInstance().getUser(id).toJson() + "]";
