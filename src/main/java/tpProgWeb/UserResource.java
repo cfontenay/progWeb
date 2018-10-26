@@ -16,11 +16,11 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 
 
-@Path("/user")
+@Path("/")
 public class UserResource {
     @GET
     @Produces("text/plain")
-    @Path("/all")
+    @Path("/users")
     public Response getUsers() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[");
@@ -31,9 +31,16 @@ public class UserResource {
         buffer.append("]");
         return Response.ok().entity(buffer.toString()).build();
     }
+    @GET
+    @Produces("test/plain")
+	@Path("/user/{id}")
+    public Response getUser(@PathParam("id") String id){
+    	String s = "["+MongoManager.getInstance().getUser(id).toJson() + "]";
+    	return Response.ok().entity(s).build();
+    }
     
     @POST
-    @Path("/add")
+    @Path("user/add")
     public Response addUser(@FormParam("firstName") String firstName, @FormParam("lastName") String lastName) {
         User user = new User();
         user.firstName = firstName;
@@ -44,7 +51,7 @@ public class UserResource {
     }
     
     @DELETE
-    @Path("{id}")
+    @Path("user/{id}")
     public Response deleteUser(@PathParam("id") String id) {
     	
         if (!MongoManager.getInstance().deleteUser(id))
@@ -52,7 +59,7 @@ public class UserResource {
         return Response.ok().build();
     }
     @PUT
-    @Path("{id}")
+    @Path("user/{id}")
     public Response setUser(@PathParam("id") String id,
                             @FormParam("firstName") String firstName,
                             @FormParam("lastName") String lastName){

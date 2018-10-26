@@ -43,6 +43,11 @@ class MongoManager {
     FindIterable<Document> getAll(){
         return userCollection.find();
     }
+    
+    Document getUser(String id) {
+    	BasicDBObject objectId = new BasicDBObject("_id", new ObjectId(id));
+    	return userCollection.find(objectId).first();
+    }
 
     boolean deleteUser(String id){
         return (userCollection.deleteOne(new Document("_id", new ObjectId(id))).getDeletedCount() == 1);
