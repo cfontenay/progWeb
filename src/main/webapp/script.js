@@ -10,6 +10,19 @@ function getAllUsers(){
 		});
 }
 function getUser(){
+	let id = document.getElementById("getId").value;
+	$.ajax({
+		url:url+id,
+		type:"GET",
+		data : {id: id},
+		dataType: "json",
+		success: function(data){
+			alert("success "+data);
+		},
+		error: function(request, msg, error){
+			alert("error delete" + data);
+		}
+	});
 	
 }
 function addUser(){
