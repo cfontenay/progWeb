@@ -1,4 +1,5 @@
 document.getElementById("all").addEventListener("click", getAllUsers);
+document.getElementById("get").addEventListener("click", getUser);
 document.getElementById("add").addEventListener("click", addUser);
 document.getElementById("set").addEventListener("click", setUser);
 document.getElementById("delete").addEventListener("click", delUser);
@@ -7,6 +8,9 @@ function getAllUsers(){
 		$.get(url+"users", function(data, status){
 			console.log("Data: " + data + "\nStatus: " + status);
 		});
+}
+function getUser(){
+	
 }
 function addUser(){
 	let fName = document.getElementById("addFName").value;
