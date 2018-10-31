@@ -56,9 +56,9 @@ class MongoManager {
     void setUser(String id, String firstName, String lastName){
         BasicDBObject objectId = new BasicDBObject("_id", new ObjectId(id));
         if (!firstName.equals(""))
-            userCollection.updateOne(new BasicDBObject(objectId), new BasicDBObject("$set", new BasicDBObject("FirstName", firstName)));
+            userCollection.updateOne(new BasicDBObject(objectId), new BasicDBObject("$set", new BasicDBObject("firstName", firstName)));
         if (!lastName.equals(""))
-            userCollection.updateOne(new BasicDBObject(objectId), new BasicDBObject("$set", new BasicDBObject("LastName", lastName)));
+            userCollection.updateOne(new BasicDBObject(objectId), new BasicDBObject("$set", new BasicDBObject("lastName", lastName)));
     }
 
 
